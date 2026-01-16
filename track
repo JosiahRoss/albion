@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Albion Market Chart</title>
+  <style>
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; margin: 16px; }
+    .row { display: flex; gap: 12px; flex-wrap: wrap; align-items: end; }
+    label { display:block; font-size: 12px; opacity: .8; margin-bottom: 4px; }
+    input, select, button { padding: 10px; font-size: 14px; }
+    input, select { min-width: 220px; }
+    button { cursor: pointer; }
+    .card { border: 1px solid #ddd; border-radius: 10px; padding: 12px; margin-top: 12px; }
+    #status { white-space: pre-wrap; font-size: 12px; opacity: .85; }
+    canvas { width: 100%; height: 420px; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border-bottom: 1px solid #eee; padding: 8px; text-align: left; font-size: 13px; }
+    th { font-size: 12px; opacity: .8; }
+  </style>
+</head>
+<body>
+  <h2>Albion Market (Stock-style)</h2>
+
+  <div class="row">
+    <div>
+      <label>Server</label>
+      <select id="region">
+        <option value="west" selected>West (Americas)</option>
+        <option value="east">East (Asia)</option>
+        <option value="europe">Europe</option>
+      </select>
+    </div>
+
+    <div>
+      <label>Item ID (e.g. T4_BAG, T6_PLANKS)</label>
+      <input id="item" value="T4_BAG" />
+    </div>
+
+    <div>
+      <label>City</label>
+      <select id="city">
+        <option>Caerleon</option>
+        <option>Thetford</option>
+        <option>Lymhurst</option>
+        <option>Bridgewatch</option>
+        <option>Martlock</option>
+        <option>Fort Sterling</option>
+        <option>Brecilien</option>
+      </select>
+    </div>
+
+    <div>
+      <label>Quality</label>
+      <select id="quality">
+        <option value="1" selected>1 (Normal)</option>
+        <option value="0">0 (Any/Unknown)</option>
+        <option value="2">2 (Good)</option>
+        <option value="3">3 (Outstanding)</option>
+        <option value="4">4 (Excellent)</option>
+        <option value="5">5 (Masterpiece)</option>
+      </select>
+    </div>
+
+    <div>
+      <label>Time-scale (hours)</label>
+      <select id="scale">
+        <option value="1">1</option>
+        <option value="6">6</option>
+        <option value="24" selected>24</option>
+        <option value="168">168</option>
+      </select>
+    </div>
+
+    <button id="load">Load</button>
+  </div>
+
+  <div class="card">
+    <div id="status">Ready.</div>
+  </div>
+
+  <div class="card">
+    <h3 style="margin:0 0 10px 0;">Price chart (avg sell)</h3>
+    <canvas id="chart" width="1200" height="520"></canvas>
+  </div>
+
+  <div class="card">
+    <h3 style="margin:0 0 10px 0;">Current snapshot</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Item</th><th>City</th><th>Quality</th>
+          <th>Sell Min</th><th>Sell Min Date</th>
+          <th>Buy Max</th><th>Buy Max Date</th>
+        </tr>
+      </thead>
+      <tbody id="snap"></tbody>
+    </table>
+  </div>
+
+<script>
+  function baseUrl(region) {
+    const r = (region || "west").toLowerCase();
+    if (r === "east") return "https://east.albion-online-data.com";
+    if (r === "europe") return "https://europe.albion-online-data.com";
+    return "https://west.albion-online-data.com";
+  }
+
+  // Endpoints per AODP docs:
+  // /api/v2/stats/prices/{items}.json?locations={cities}&qualities={q}
+  // /api/v2/stats/history/{items}.json?locations={cities}&qualities={q}&time-scale={hours}
+  // (Docs: albion-online-data.com/api-site/api.html)
+  async function fetchJson(url) {
+    const res = await fetch(url, { headers: { "Accept": "application/json" } });
+    if (!res.ok) throw new Error(`HTTP ${res.status} ${res.statusText}`);
+    return await res.json();
+  }
+
+  function setStatus(msg) {
+    document.getElementById("status").textContent = msg;
+  }
+
+  function fmt(n) {
+    if (n === null || n === undefined || n === "") return "";
+    return Number(n).toLocaleString();
+  }
+
+  function drawLineChart(canvas, points) {
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width, H = canvas.height;
+    ctx.clearRect(0,0,W,H);
+
+    if (!points.length) {
+      ctx.fillText("No data.", 20, 30);
+      return;
+    }
+
+    const xs = points.map(p => p.t);
+    const ys = points.map(p => p.v);
+
+    const minX = Math.min(...xs), maxX = Math.max(...xs);
+    const minY = Math.min(...ys), maxY = Math.max(...ys);
+
+    const padL = 60, padR = 20, padT = 20, padB = 40;
+    const plotW = W - padL - padR;
+    const plotH = H - padT - padB;
+
+    function xScale(x) {
+      return padL + ( (x - minX) / (maxX - minX || 1) ) * plotW;
+    }
+    function yScale(y) {
+      return padT + (1 - ( (y - minY) / (maxY - minY || 1) )) * plotH;
+    }
+
+    // axes
+    ctx.strokeStyle = "#bbb";
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(padL, padT);
+    ctx.lineTo(padL, H - padB);
+    ctx.lineTo(W - padR, H - padB);
+    ctx.stroke();
+
+    // y labels (5 ticks)
+    ctx.fillStyle = "#333";
+    ctx.font = "12px system-ui";
+    for (let i=0;i<=5;i++) {
+      const yVal = minY + ( (maxY - minY) * (i/5) );
+      const y = yScale(yVal);
+      ctx.strokeStyle = "#eee";
+      ctx.beginPath();
+      ctx.moveTo(padL, y);
+      ctx.lineTo(W - padR, y);
+      ctx.stroke();
+      ctx.fillText(fmt(yVal.toFixed(0)), 6, y + 4);
+    }
+
+    // line
+    ctx.strokeStyle = "#111";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    points.forEach((p, i) => {
+      const x = xScale(p.t);
+      const y = yScale(p.v);
+      if (i === 0) ctx.moveTo(x,y);
+      else ctx.lineTo(x,y);
+    });
+    ctx.stroke();
+  }
+
+  async function load() {
+    const region = document.getElementById("region").value;
+    const item = document.getElementById("item").value.trim();
+    const city = document.getElementById("city").value.trim();
+    const quality = document.getElementById("quality").value.trim();
+    const scale = document.getElementById("scale").value.trim();
+
+    if (!item) { setStatus("Enter an item id."); return; }
+
+    const base = baseUrl(region);
+
+    // Current snapshot
+    const pricesUrl = `${base}/api/v2/stats/prices/${encodeURIComponent(item)}.json?locations=${encodeURIComponent(city)}&qualities=${encodeURIComponent(quality)}`;
+
+    // History (sell orders)
+    const historyUrl = `${base}/api/v2/stats/history/${encodeURIComponent(item)}.json?locations=${encodeURIComponent(city)}&qualities=${encodeURIComponent(quality)}&time-scale=${encodeURIComponent(scale)}`;
+
+    setStatus(`Loading...\n${historyUrl}\n${pricesUrl}`);
+
+    try {
+      const [hist, snap] = await Promise.all([fetchJson(historyUrl), fetchJson(pricesUrl)]);
+
+      // history: array of series, each has .data[] with {timestamp, avg_price, item_count}
+      const series = (hist && hist[0] && hist[0].data) ? hist[0].data : [];
+      const points = series
+        .filter(pt => pt && pt.timestamp && (pt.avg_price || pt.avg_price === 0))
+        .map(pt => ({
+          t: new Date(pt.timestamp).getTime(),
+          v: Number(pt.avg_price)
+        }))
+        .sort((a,b) => a.t - b.t);
+
+      drawLineChart(document.getElementById("chart"), points);
+
+      const tbody = document.getElementById("snap");
+      tbody.innerHTML = "";
+      (snap || []).forEach(r => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${r.item_id || ""}</td>
+          <td>${r.city || ""}</td>
+          <td>${r.quality ?? ""}</td>
+          <td>${fmt(r.sell_price_min)}</td>
+          <td>${(r.sell_price_min_date || "").replace("T"," ").replace("Z","")}</td>
+          <td>${fmt(r.buy_price_max)}</td>
+          <td>${(r.buy_price_max_date || "").replace("T"," ").replace("Z","")}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      setStatus(`Loaded ${points.length} history points and ${(snap||[]).length} snapshot rows.`);
+    } catch (e) {
+      setStatus(
+        "Error loading data.\n\n" +
+        String(e) +
+        "\n\nIf this is a corporate laptop restriction (CORS/firewall), use the 'proxy' approach (Cloudflare Worker) and point the app at that proxy URL."
+      );
+    }
+  }
+
+  document.getElementById("load").addEventListener("click", load);
+</script>
+</body>
+</html>
