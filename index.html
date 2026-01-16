@@ -36,7 +36,7 @@
     html,body{ height:100%; }
     body{
       margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
       background:
         radial-gradient(1200px 800px at 20% 10%, rgba(124,92,255,.25), transparent 60%),
         radial-gradient(900px 700px at 90% 30%, rgba(53,208,127,.18), transparent 60%),
@@ -46,31 +46,18 @@
     }
 
     .wrap{ max-width: 1200px; margin: 0 auto; padding: 22px 16px 44px; }
-    .topbar{
-      display:flex; align-items:center; justify-content:space-between; gap:12px;
-      margin-bottom: 14px;
-    }
-    .brand{
-      display:flex; align-items:center; gap:12px;
-    }
-    .logo{
-      width: 42px; height: 42px; border-radius: 14px;
-      background: linear-gradient(135deg, rgba(124,92,255,.9), rgba(53,208,127,.75));
-      box-shadow: var(--shadow);
-    }
-    .title{
-      line-height:1.1;
-    }
+    .topbar{ display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom: 14px; }
+    .brand{ display:flex; align-items:center; gap:12px; }
+    .logo{ width: 42px; height: 42px; border-radius: 14px; background: linear-gradient(135deg, rgba(124,92,255,.9), rgba(53,208,127,.75)); box-shadow: var(--shadow); }
+    .title{ line-height:1.1; }
     .title h1{ font-size: 18px; margin:0; letter-spacing:.2px; }
     .title p{ margin:4px 0 0; color: var(--muted); font-size: 12px; }
 
     .actions{ display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
     .chip{
       display:inline-flex; align-items:center; gap:8px;
-      padding: 10px 12px;
-      border-radius: 999px;
-      background: var(--card);
-      border: 1px solid var(--border);
+      padding: 10px 12px; border-radius: 999px;
+      background: var(--card); border: 1px solid var(--border);
       box-shadow: 0 10px 25px rgba(0,0,0,.12);
       backdrop-filter: blur(10px);
       color: var(--muted);
@@ -79,14 +66,10 @@
     }
     .btn{
       appearance:none; border: 1px solid var(--border); background: var(--card2);
-      color: var(--text);
-      padding: 10px 12px;
-      border-radius: 12px;
-      cursor:pointer;
-      box-shadow: 0 10px 25px rgba(0,0,0,.10);
+      color: var(--text); padding: 10px 12px; border-radius: 12px;
+      cursor:pointer; box-shadow: 0 10px 25px rgba(0,0,0,.10);
       transition: transform .08s ease, background .15s ease;
-      font-weight: 600;
-      letter-spacing:.2px;
+      font-weight: 600; letter-spacing:.2px;
     }
     .btn:hover{ transform: translateY(-1px); }
     .btn:active{ transform: translateY(0); }
@@ -94,18 +77,10 @@
       border: 1px solid rgba(124,92,255,.35);
       background: linear-gradient(135deg, rgba(124,92,255,.85), rgba(124,92,255,.45));
     }
-    .btn.ghost{
-      background: transparent;
-    }
+    .btn.ghost{ background: transparent; }
 
-    .grid{
-      display:grid;
-      grid-template-columns: 420px 1fr;
-      gap: 14px;
-    }
-    @media (max-width: 980px){
-      .grid{ grid-template-columns: 1fr; }
-    }
+    .grid{ display:grid; grid-template-columns: 420px 1fr; gap: 14px; }
+    @media (max-width: 980px){ .grid{ grid-template-columns: 1fr; } }
 
     .card{
       background: var(--card);
@@ -123,22 +98,14 @@
     [data-theme="light"] .card .head{ border-bottom: 1px solid rgba(10,15,24,.06); }
     .card .head h2{ margin:0; font-size: 14px; letter-spacing: .2px; }
     .card .head .sub{ margin:4px 0 0; font-size: 12px; color: var(--muted); }
-
     .card .body{ padding: 14px; }
 
-    .form{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
+    .form{ display:grid; grid-template-columns: 1fr 1fr; gap: 10px; }
     .form .full{ grid-column: 1 / -1; }
+    .field{ position: relative; }
     .field label{
-      display:block;
-      font-size: 11px;
-      color: var(--muted);
-      margin: 0 0 6px;
-      letter-spacing:.25px;
-      text-transform: uppercase;
+      display:block; font-size: 11px; color: var(--muted);
+      margin: 0 0 6px; letter-spacing:.25px; text-transform: uppercase;
     }
     .control{
       width:100%;
@@ -153,10 +120,7 @@
     .control::placeholder{ color: var(--muted2); }
     select.control{ cursor:pointer; }
 
-    .row-actions{
-      display:flex; gap:10px; flex-wrap:wrap;
-      margin-top: 10px;
-    }
+    .row-actions{ display:flex; gap:10px; flex-wrap:wrap; margin-top: 10px; }
 
     .pill{
       display:inline-flex; align-items:center; gap:8px;
@@ -173,16 +137,10 @@
     .pill strong{ color: var(--text); }
     .muted{ color: var(--muted); }
 
-    .split{
-      display:grid;
-      grid-template-columns: 1fr;
-      gap: 10px;
-    }
+    .divider{ height: 1px; background: rgba(255,255,255,.08); margin: 12px 0; }
+    [data-theme="light"] .divider{ background: rgba(10,15,24,.08); }
 
-    .chartWrap{
-      position: relative;
-      padding: 10px 12px 14px;
-    }
+    .chartWrap{ position: relative; padding: 10px 12px 14px; }
     canvas{
       width:100%;
       height: 420px;
@@ -241,9 +199,7 @@
       gap: 10px;
       margin-top: 10px;
     }
-    @media (max-width: 980px){
-      .kpiRow{ grid-template-columns: 1fr; }
-    }
+    @media (max-width: 980px){ .kpiRow{ grid-template-columns: 1fr; } }
     .kpi{
       padding: 12px;
       border-radius: 14px;
@@ -257,13 +213,10 @@
     .good{ color: var(--good); }
     .bad{ color: var(--bad); }
 
-    .watchlist{
-      display:flex; flex-direction:column; gap:10px;
-    }
+    .watchlist{ display:flex; flex-direction:column; gap:10px; }
     .watchItem{
       display:flex; gap:10px; align-items:center; justify-content:space-between;
-      padding: 10px 12px;
-      border-radius: 14px;
+      padding: 10px 12px; border-radius: 14px;
       border: 1px solid var(--border);
       background: rgba(0,0,0,.10);
     }
@@ -281,12 +234,7 @@
       border: 1px solid rgba(10,15,24,.10);
       background: rgba(255,255,255,.65);
     }
-    .mini{
-      font-weight: 800;
-      font-size: 13px;
-      min-width: 90px;
-      text-align:right;
-    }
+    .mini{ font-weight: 800; font-size: 13px; min-width: 90px; text-align:right; }
     .iconBtn{
       border: 1px solid var(--border);
       background: transparent;
@@ -299,28 +247,61 @@
     .iconBtn:hover{ color: var(--text); }
 
     .small{ font-size: 12px; color: var(--muted); }
-    .divider{ height: 1px; background: rgba(255,255,255,.08); margin: 12px 0; }
-    [data-theme="light"] .divider{ background: rgba(10,15,24,.08); }
 
-    .err{
+    .err, .ok{
       white-space: pre-wrap;
-      background: rgba(255,92,122,.12);
-      border: 1px solid rgba(255,92,122,.25);
-      color: var(--text);
       padding: 10px 12px;
       border-radius: 14px;
       display:none;
       margin-top:10px;
     }
+    .err{
+      background: rgba(255,92,122,.12);
+      border: 1px solid rgba(255,92,122,.25);
+      color: var(--text);
+    }
     .ok{
-      white-space: pre-wrap;
       background: rgba(53,208,127,.10);
       border: 1px solid rgba(53,208,127,.20);
       color: var(--text);
-      padding: 10px 12px;
+    }
+
+    /* Item picker dropdown */
+    .pickerList{
+      position:absolute;
+      left:0; right:0; top: 100%;
+      margin-top: 8px;
+      background: rgba(10,15,24,.92);
+      border: 1px solid var(--border);
       border-radius: 14px;
+      box-shadow: 0 24px 60px rgba(0,0,0,.45);
+      backdrop-filter: blur(10px);
+      overflow:hidden;
       display:none;
-      margin-top:10px;
+      z-index: 50;
+      max-height: 300px;
+    }
+    [data-theme="light"] .pickerList{
+      background: rgba(255,255,255,.96);
+      box-shadow: 0 24px 60px rgba(10,15,24,.18);
+    }
+    .pickerRow{
+      padding: 10px 12px;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+      cursor:pointer;
+      display:flex; gap:10px; align-items:center; justify-content:space-between;
+    }
+    [data-theme="light"] .pickerRow{ border-bottom: 1px solid rgba(10,15,24,.06); }
+    .pickerRow:hover{ background: rgba(124,92,255,.12); }
+    .pickerLeft{ min-width:0; }
+    .pickerName{ font-weight:800; font-size: 13px; overflow:hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .pickerMeta{ font-size: 12px; color: var(--muted); overflow:hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .pickerId{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 11px;
+      color: var(--muted);
+      flex-shrink:0;
+      margin-left: 10px;
     }
   </style>
 </head>
@@ -332,7 +313,7 @@
         <div class="logo" aria-hidden="true"></div>
         <div class="title">
           <h1>Albion Market</h1>
-          <p>Stock-style charting for Albion Online Data Project market data</p>
+          <p>Stock-style charting for Albion market data</p>
         </div>
       </div>
 
@@ -349,7 +330,7 @@
         <div class="head">
           <div>
             <h2>Controls</h2>
-            <div class="sub">Pick item + market, then load.</div>
+            <div class="sub">Search items by name (no spelling required) and load.</div>
           </div>
         </div>
 
@@ -377,9 +358,13 @@
               </select>
             </div>
 
-            <div class="field full">
-              <label>Item ID</label>
-              <input class="control" id="item" placeholder="e.g. T4_BAG, T6_PLANKS" value="T4_BAG" />
+            <div class="field full" id="itemField">
+              <label>Item (search by name or paste item id)</label>
+              <input class="control" id="itemSearch" placeholder="Type: 'bag', 't6 cape', 'pork omelette'…" autocomplete="off" />
+              <div class="pickerList" id="pickerList"></div>
+              <div class="small" style="margin-top:8px;">
+                Selected item_id: <strong id="itemIdDisplay">T4_BAG</strong>
+              </div>
             </div>
 
             <div class="field">
@@ -414,6 +399,15 @@
                 <option value="1800">Every 30 min</option>
               </select>
             </div>
+
+            <div class="field full">
+              <label>Item database</label>
+              <div class="row-actions" style="margin-top:0;">
+                <button class="btn" id="loadItemsBtn" title="Loads items.json and enables search">Load item list</button>
+                <button class="btn ghost" id="clearItemsBtn" title="Clear cached items list">Clear cache</button>
+              </div>
+              <div class="small" id="itemsStatus" style="margin-top:8px;">Not loaded yet.</div>
+            </div>
           </div>
 
           <div class="row-actions">
@@ -427,17 +421,15 @@
 
           <div class="divider"></div>
 
-          <div class="split">
-            <div class="pill">
-              <span class="muted">Selection:</span>
-              <strong id="selText">—</strong>
-            </div>
+          <div class="pill">
+            <span class="muted">Selection:</span>
+            <strong id="selText">—</strong>
+          </div>
 
-            <div class="watchlist" id="watchlist"></div>
+          <div class="watchlist" id="watchlist" style="margin-top:10px;"></div>
 
-            <div class="small" id="hint">
-              Tip: Use the watchlist as your “ticker board” for crafting materials and finished goods.
-            </div>
+          <div class="small" style="margin-top:10px;">
+            Tip: Load the item list once; it will be cached locally for fast search next time.
           </div>
         </div>
       </div>
@@ -508,7 +500,7 @@
     const res = await fetch(url, { headers: { "Accept": "application/json" } });
     if (!res.ok) {
       const t = await res.text().catch(() => "");
-      throw new Error(`HTTP ${res.status} ${res.statusText}\n${t.slice(0, 250)}`);
+      throw new Error(\`HTTP \${res.status} \${res.statusText}\n\${t.slice(0, 250)}\`);
     }
     return await res.json();
   }
@@ -560,25 +552,228 @@
     $("clock").textContent = new Date().toLocaleString();
   }
 
+  // ---------- Item DB + Picker ----------
+  // AODP docs reference formatted metadata (items.json) for item IDs. :contentReference[oaicite:1]{index=1}
+  const ITEMS_CACHE_KEY = "albion_itemsdb_v1";
+  const ITEMS_CACHE_TS  = "albion_itemsdb_ts_v1";
+  const ITEMS_CACHE_MAX_AGE_MS = 1000 * 60 * 60 * 24 * 14; // 14 days
+
+  // Try multiple known sources (one may fail due to rate/CORS/etc.)
+  const ITEM_DB_URLS = [
+    "https://raw.githubusercontent.com/ao-data/ao-bin-dumps/master/formatted/items.json",
+    "https://raw.githubusercontent.com/broderickhyman/ao-bin-dumps/master/formatted/items.json"
+  ];
+
+  let itemsDB = null;      // array of normalized items
+  let selectedItemId = "T4_BAG";
+
+  function normalizeItem(raw) {
+    // items.json variants may have different keys depending on dump version
+    const id = raw.UniqueName || raw.uniqueName || raw.unique_name || raw.ItemID || raw.item_id || raw.Id || raw.id || "";
+    const name = raw.LocalizedNames?.["EN-US"] || raw.LocalizedNames?.EN || raw.LocalizationName || raw.localizedName || raw.Name || raw.name || "";
+    const desc = raw.LocalizedDescriptions?.["EN-US"] || raw.LocalizationDescription || raw.Description || "";
+    const tier = raw.Tier || raw.tier || "";
+    const category = raw.ItemType || raw.itemType || raw.Category || raw.category || "";
+    return {
+      id: String(id || "").trim(),
+      name: String(name || "").trim(),
+      desc: String(desc || "").trim(),
+      tier: String(tier || "").trim(),
+      category: String(category || "").trim(),
+    };
+  }
+
+  function setItemsStatus(text) {
+    $("itemsStatus").textContent = text;
+  }
+
+  function cacheItems(rawArray) {
+    localStorage.setItem(ITEMS_CACHE_KEY, JSON.stringify(rawArray));
+    localStorage.setItem(ITEMS_CACHE_TS, String(Date.now()));
+  }
+
+  function readCachedItems() {
+    try {
+      const ts = Number(localStorage.getItem(ITEMS_CACHE_TS) || 0);
+      const ageOk = (Date.now() - ts) < ITEMS_CACHE_MAX_AGE_MS;
+      const raw = localStorage.getItem(ITEMS_CACHE_KEY);
+      if (!raw || !ageOk) return null;
+      return JSON.parse(raw);
+    } catch { return null; }
+  }
+
+  function clearItemsCache() {
+    localStorage.removeItem(ITEMS_CACHE_KEY);
+    localStorage.removeItem(ITEMS_CACHE_TS);
+    itemsDB = null;
+    setItemsStatus("Cache cleared.");
+  }
+
+  async function loadItemsDB(force) {
+    clearErr();
+    if (!force) {
+      const cached = readCachedItems();
+      if (cached && Array.isArray(cached) && cached.length) {
+        itemsDB = cached.map(normalizeItem).filter(x => x.id);
+        setItemsStatus(\`Loaded from cache: \${itemsDB.length.toLocaleString()} items.\`);
+        return;
+      }
+    }
+
+    setItemsStatus("Loading item list… (first time can take a bit)");
+    for (const url of ITEM_DB_URLS) {
+      try {
+        const raw = await fetchJson(url);
+        if (!Array.isArray(raw)) throw new Error("items.json was not an array");
+        cacheItems(raw);
+        itemsDB = raw.map(normalizeItem).filter(x => x.id);
+        setItemsStatus(\`Loaded: \${itemsDB.length.toLocaleString()} items.\`);
+        return;
+      } catch (e) {
+        // try next
+      }
+    }
+    itemsDB = null;
+    setItemsStatus("Failed to load items.json from known sources. (Network or CORS block)");
+    showErr("Could not load the item database. You can still paste item IDs manually (example: T4_BAG).");
+  }
+
+  function setSelectedItem(id, displayName) {
+    selectedItemId = id;
+    $("itemIdDisplay").textContent = id || "—";
+    $("itemSearch").value = displayName || id || "";
+    hidePicker();
+  }
+
+  function hidePicker() {
+    $("pickerList").style.display = "none";
+    $("pickerList").innerHTML = "";
+  }
+
+  function showPicker(rowsHtml) {
+    const box = $("pickerList");
+    box.innerHTML = rowsHtml;
+    box.style.display = "block";
+
+    box.querySelectorAll("[data-itemid]").forEach(el => {
+      el.addEventListener("click", () => {
+        const id = el.getAttribute("data-itemid");
+        const name = el.getAttribute("data-itemname") || id;
+        setSelectedItem(id, name);
+      });
+    });
+  }
+
+  function scoreMatch(query, item) {
+    // lightweight scoring: prefer name hits, then id hits
+    const q = query.toLowerCase();
+    const name = (item.name || "").toLowerCase();
+    const id = (item.id || "").toLowerCase();
+
+    let score = 0;
+    if (name === q) score += 1000;
+    if (id === q) score += 900;
+    if (name.startsWith(q)) score += 250;
+    if (id.startsWith(q)) score += 220;
+    if (name.includes(q)) score += 120;
+    if (id.includes(q)) score += 100;
+
+    // bonus for multi-token matches
+    const tokens = q.split(/\s+/).filter(Boolean);
+    if (tokens.length > 1) {
+      let hits = 0;
+      for (const t of tokens) if (name.includes(t) || id.includes(t)) hits++;
+      score += hits * 40;
+    }
+    return score;
+  }
+
+  function renderPickerResults(query) {
+    if (!itemsDB) {
+      hidePicker();
+      return;
+    }
+    const q = query.trim();
+    if (q.length < 2) {
+      hidePicker();
+      return;
+    }
+
+    const matches = [];
+    for (const it of itemsDB) {
+      const s = scoreMatch(q, it);
+      if (s > 0) matches.push({ s, it });
+    }
+    matches.sort((a,b) => b.s - a.s);
+
+    const top = matches.slice(0, 25).map(({it}) => {
+      const title = it.name || it.id;
+      const meta = [it.category, it.tier].filter(Boolean).join(" • ");
+      const safeTitle = escapeHtml(title);
+      const safeMeta = escapeHtml(meta);
+      const safeId = escapeHtml(it.id);
+      return `
+        <div class="pickerRow" data-itemid="${safeId}" data-itemname="${safeTitle}">
+          <div class="pickerLeft">
+            <div class="pickerName">${safeTitle}</div>
+            <div class="pickerMeta">${safeMeta || "—"}</div>
+          </div>
+          <div class="pickerId">${safeId}</div>
+        </div>`;
+    }).join("");
+
+    if (!top) {
+      showPicker(`<div class="pickerRow"><div class="pickerLeft"><div class="pickerName">No matches</div><div class="pickerMeta">Try a shorter search (e.g. “bag”, “cape”, “omelette”)</div></div></div>`);
+      return;
+    }
+
+    showPicker(top);
+  }
+
+  function escapeHtml(s){
+    return String(s)
+      .replaceAll("&","&amp;")
+      .replaceAll("<","&lt;")
+      .replaceAll(">","&gt;")
+      .replaceAll('"',"&quot;")
+      .replaceAll("'","&#039;");
+  }
+
+  let pickerTimer = null;
+  function onItemSearchInput() {
+    const q = $("itemSearch").value || "";
+    if (pickerTimer) clearTimeout(pickerTimer);
+    pickerTimer = setTimeout(() => renderPickerResults(q), 80);
+  }
+
+  function onItemSearchKeyDown(e) {
+    if (e.key === "Escape") hidePicker();
+    if (e.key === "Enter") {
+      // If user types an exact item id, accept it even without DB
+      const typed = ($("itemSearch").value || "").trim();
+      if (typed && /^[A-Z0-9_@-]+$/.test(typed)) {
+        selectedItemId = typed;
+        $("itemIdDisplay").textContent = typed;
+        hidePicker();
+      }
+    }
+  }
+
   // ---------- Chart ----------
   const chartState = { points: [], meta: null };
 
-  function drawChart(points, meta) {
+  function drawChart(points) {
     const canvas = $("chart");
     const ctx = canvas.getContext("2d");
     const W = canvas.width, H = canvas.height;
 
     ctx.clearRect(0,0,W,H);
 
-    // plot region
     const padL = 72, padR = 18, padT = 18, padB = 46;
     const plotW = W - padL - padR;
     const plotH = H - padT - padB;
 
-    // background grid
     const isLight = (document.documentElement.getAttribute("data-theme") === "light");
-    ctx.fillStyle = isLight ? "rgba(255,255,255,.0)" : "rgba(0,0,0,.0)";
-    ctx.fillRect(0,0,W,H);
 
     if (!points.length) {
       ctx.fillStyle = isLight ? "rgba(10,15,24,.65)" : "rgba(255,255,255,.65)";
@@ -610,20 +805,6 @@
       ctx.fillText(fmt(yVal.toFixed(0)), 10, y + 4);
     }
 
-    // x labels (3 ticks)
-    ctx.fillStyle = isLight ? "rgba(10,15,24,.55)" : "rgba(255,255,255,.55)";
-    const t1 = new Date(minX);
-    const t2 = new Date((minX + maxX) / 2);
-    const t3 = new Date(maxX);
-    const xsTicks = [
-      { x: padL, label: t1.toLocaleDateString() },
-      { x: padL + plotW/2, label: t2.toLocaleDateString() },
-      { x: padL + plotW, label: t3.toLocaleDateString() },
-    ];
-    xsTicks.forEach(tt => {
-      ctx.fillText(tt.label, tt.x - 26, H - 18);
-    });
-
     // axes
     ctx.strokeStyle = isLight ? "rgba(10,15,24,.16)" : "rgba(255,255,255,.16)";
     ctx.lineWidth = 1;
@@ -633,7 +814,7 @@
     ctx.lineTo(W - padR, H - padB);
     ctx.stroke();
 
-    // line + gradient area
+    // area gradient
     const grad = ctx.createLinearGradient(0, padT, 0, H - padB);
     grad.addColorStop(0, "rgba(124,92,255,.35)");
     grad.addColorStop(1, "rgba(124,92,255,0)");
@@ -651,6 +832,7 @@
     ctx.closePath();
     ctx.fill();
 
+    // line
     ctx.strokeStyle = "rgba(124,92,255,.95)";
     ctx.lineWidth = 2.2;
     ctx.beginPath();
@@ -662,16 +844,6 @@
     });
     ctx.stroke();
 
-    // last point marker
-    const last = points[points.length - 1];
-    const lx = xScale(last.t), ly = yScale(last.v);
-    ctx.fillStyle = "rgba(255,255,255,.95)";
-    ctx.beginPath(); ctx.arc(lx, ly, 3.6, 0, Math.PI*2); ctx.fill();
-    ctx.strokeStyle = "rgba(124,92,255,.95)";
-    ctx.lineWidth = 2;
-    ctx.beginPath(); ctx.arc(lx, ly, 6.5, 0, Math.PI*2); ctx.stroke();
-
-    // store state for tooltip
     chartState.points = points;
     chartState.meta = { minX, maxX, minY, maxY, padL, padR, padT, padB, plotW, plotH, xScale, yScale };
   }
@@ -695,7 +867,6 @@
       const m = chartState.meta;
       const xIn = clamp(mx, m.padL, m.padL + m.plotW);
 
-      // nearest point by x
       const targetT = m.minX + ((xIn - m.padL) / (m.plotW || 1)) * (m.maxX - m.minX);
       let best = 0;
       for (let i=1;i<chartState.points.length;i++){
@@ -705,15 +876,13 @@
       const px = m.xScale(p.t);
       const py = m.yScale(p.v);
 
-      // draw crosshair overlay
       const ctx = canvas.getContext("2d");
-      drawChart(chartState.points, null);
+      drawChart(chartState.points);
 
       ctx.strokeStyle = "rgba(255,255,255,.20)";
       ctx.lineWidth = 1;
       ctx.beginPath(); ctx.moveTo(px, m.padT); ctx.lineTo(px, canvas.height - m.padB); ctx.stroke();
       ctx.beginPath(); ctx.moveTo(m.padL, py); ctx.lineTo(canvas.width - m.padR, py); ctx.stroke();
-
       ctx.fillStyle = "rgba(255,255,255,.95)";
       ctx.beginPath(); ctx.arc(px, py, 3.6, 0, Math.PI*2); ctx.fill();
 
@@ -751,7 +920,7 @@
       city: $("city").value,
       quality: $("quality").value,
       scale: $("scale").value,
-      item: $("item").value.trim()
+      item: selectedItemId
     };
   }
 
@@ -824,7 +993,7 @@
         $("city").value = w.city;
         $("quality").value = w.quality;
         $("scale").value = w.scale;
-        $("item").value = w.item;
+        setSelectedItem(w.item, w.item);
         loadMain();
       });
     });
@@ -837,7 +1006,6 @@
       });
     });
 
-    // refresh sparklines + mini prices (best-effort)
     list.forEach(async (w) => {
       try {
         const pts = await loadSpark(w);
@@ -848,9 +1016,7 @@
         const elSpark = $(sparkId);
         if (elMini) elMini.textContent = last === null ? "—" : fmt(last);
         if (elSpark) elSpark.innerHTML = sparkSvg(pts.slice(Math.max(0, pts.length - 40)));
-      } catch {
-        // silent: watchlist should stay responsive even if one item fails
-      }
+      } catch {}
     });
   }
 
@@ -862,7 +1028,7 @@
 
     const sel = currentSelection();
     if (!sel.item) {
-      showErr("Enter an Item ID (example: T4_BAG).");
+      showErr("Pick an item first (or paste an item id).");
       return;
     }
 
@@ -882,23 +1048,20 @@
       `&qualities=${encodeURIComponent(sel.quality)}` +
       `&time-scale=${encodeURIComponent(sel.scale)}`;
 
-    // Loading state
     $("loadBtn").textContent = "Loading…";
     $("loadBtn").disabled = true;
 
     try {
       const [hist, snap] = await Promise.all([fetchJson(historyUrl), fetchJson(pricesUrl)]);
 
-      // history points
       const series = (hist && hist[0] && hist[0].data) ? hist[0].data : [];
       const points = series
         .filter(pt => pt && pt.timestamp && (pt.avg_price || pt.avg_price === 0))
         .map(pt => ({ t: new Date(pt.timestamp).getTime(), v: Number(pt.avg_price) }))
         .sort((a,b) => a.t - b.t);
 
-      drawChart(points, null);
+      drawChart(points);
 
-      // snapshot table + KPIs
       const tbody = $("snap");
       tbody.innerHTML = "";
 
@@ -927,7 +1090,6 @@
       $("kBuy").textContent = fmt(buyMax);
       $("kBuyD").textContent = dt(buyDate);
 
-      // trend
       if (points.length >= 2) {
         const first = points[0].v;
         const last = points[points.length - 1].v;
@@ -944,13 +1106,9 @@
       }
 
       toastOK(`Loaded: ${points.length} history points`);
-      renderWatchlist(); // refresh watchlist minis
+      renderWatchlist();
     } catch (e) {
-      showErr(
-        "Error loading market data.\n\n" +
-        String(e) +
-        "\n\nIf this works on GitHub Pages but fails on a corporate network, it may be blocked by firewall policy."
-      );
+      showErr("Error loading market data.\n\n" + String(e));
     } finally {
       $("loadBtn").textContent = "Load";
       $("loadBtn").disabled = false;
@@ -960,60 +1118,67 @@
   function updateAutoRefresh() {
     if (autoTimer) { clearInterval(autoTimer); autoTimer = null; }
     const secs = Number($("autoRefresh").value || 0);
-    if (secs > 0) {
-      autoTimer = setInterval(() => loadMain(), secs * 1000);
-    }
+    if (secs > 0) autoTimer = setInterval(() => loadMain(), secs * 1000);
   }
 
   function addToWatchlist() {
     clearErr();
     const sel = currentSelection();
-    if (!sel.item) { showErr("Enter an Item ID first."); return; }
+    if (!sel.item) { showErr("Pick an item first."); return; }
     const list = getWatchlist();
     const key = watchKeyOf(sel);
-    if (list.some(x => watchKeyOf(x) === key)) {
-      toastOK("Already in watchlist.");
-      return;
-    }
+    if (list.some(x => watchKeyOf(x) === key)) { toastOK("Already in watchlist."); return; }
     list.unshift(sel);
-    setWatchlist(list.slice(0, 20)); // keep it sane
+    setWatchlist(list.slice(0, 20));
     toastOK("Added to watchlist.");
   }
 
   // ---------- Init ----------
   function init() {
-    // theme
     setTheme(getTheme());
+
     $("themeBtn").addEventListener("click", () => {
       const cur = document.documentElement.getAttribute("data-theme") || "dark";
       setTheme(cur === "dark" ? "light" : "dark");
-      // redraw chart for grid contrast
-      if (chartState.points.length) drawChart(chartState.points, null);
+      if (chartState.points.length) drawChart(chartState.points);
     });
 
-    // clock
     nowClock();
     setInterval(nowClock, 1000);
 
-    // handlers
     $("loadBtn").addEventListener("click", loadMain);
     $("refreshBtn").addEventListener("click", loadMain);
     $("addWatchBtn").addEventListener("click", addToWatchlist);
     $("clearWatchBtn").addEventListener("click", () => { setWatchlist([]); toastOK("Watchlist cleared."); });
     $("autoRefresh").addEventListener("change", updateAutoRefresh);
 
-    // enter-to-load
-    $("item").addEventListener("keydown", (e) => {
-      if (e.key === "Enter") loadMain();
+    // Item picker events
+    $("itemSearch").addEventListener("input", onItemSearchInput);
+    $("itemSearch").addEventListener("keydown", onItemSearchKeyDown);
+    document.addEventListener("click", (e) => {
+      const within = $("itemField").contains(e.target);
+      if (!within) hidePicker();
     });
+
+    // Item DB buttons
+    $("loadItemsBtn").addEventListener("click", async () => {
+      await loadItemsDB(true);
+      toastOK("Item list ready.");
+    });
+    $("clearItemsBtn").addEventListener("click", clearItemsCache);
+
+    // Try loading from cache automatically
+    loadItemsDB(false);
+
+    // Default selection
+    setSelectedItem("T4_BAG", "T4_BAG");
 
     setupTooltip();
     renderWatchlist();
+    updateAutoRefresh();
 
-    // initial selection text
     const sel = currentSelection();
     $("selText").textContent = `${sel.item} • ${sel.region.toUpperCase()} • ${sel.city} • Q${sel.quality} • ${sel.scale}h`;
-    updateAutoRefresh();
   }
 
   init();
